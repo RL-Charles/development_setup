@@ -1,0 +1,10 @@
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[ui]
+pane_borders = true
+accent = "#89b4fa"
+
+[keys]
+prefix = "ctrl+space"%
