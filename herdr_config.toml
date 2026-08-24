@@ -1,5 +1,6 @@
+onboarding = false
 [theme]
-name = "catppuccin"
+name = "tokyo-night"
 auto_switch = false
 
 [ui]
@@ -7,4 +8,4 @@ pane_borders = true
 accent = "#89b4fa"
 
 [keys]
-prefix = "ctrl+space"%
+prefix = "ctrl+space"
