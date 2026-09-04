@@ -38,7 +38,7 @@ Do not copy Cursor/VS Code `auth.json`, `globalStorage`, or chat history.
 ## What this repo does not store
 
 - GitHub / Railway / Cursor login tokens — run `gh auth login`, `railway login`, sign into Cursor
-- TradiePro `.env.local` / `apps/api/.env` — copy privately, never commit
+- TradiePro `.env.local` / `apps/api/.env` — copy privately or import into Bitwarden with `scripts/bw-import-tradiepro.sh`; never commit
 - `~/.ssh` private keys (this WSL user had none; GitHub used `gh`)
 - zsh history, nvim plugin caches, `node_modules`
 
@@ -81,6 +81,31 @@ cp development_setup/starship.toml ~/.config/starship.toml
 ```
 
 Optional afterwards: nvm, `gh`, Railway CLI, OpenCode. The zshrc sources those only if they exist.
+
+## Import TradiePro env files into a Bitwarden collection
+
+The agent does not log into your vault. You unlock `bw` in **your** terminal, then run the importer. It creates one Secure Note per env file (`tradiepro/.env.local`, …) with **hidden** custom fields. stdout is item names and key names only.
+
+```bash
+# Official CLI: https://bitwarden.com/help/cli/#download-and-install
+bw login
+export BW_SESSION="$(bw unlock --raw)"
+
+cd ~/development/development_setup
+python3 scripts/bw-import-env.py --list-collections
+
+# Dry run (prints key names, writes nothing):
+TRADIEPRO_ROOT="$HOME/development/tradie_pro_refactor/tradie-pro-refactor" \
+  python3 scripts/bw-import-env.py --dry-run --collection 'Your collection name' \
+    --file "$TRADIEPRO_ROOT/.env.local" \
+    --file "$TRADIEPRO_ROOT/apps/api/.env" \
+    --file "$TRADIEPRO_ROOT/apps/web/.env.local"
+
+chmod +x scripts/bw-import-tradiepro.sh
+./scripts/bw-import-tradiepro.sh 'Your collection name'
+```
+
+Do not paste `BW_SESSION` or env values into Cursor chat. If you created a **folder** in the personal vault instead of an org collection, use `--folder 'Name'` on `bw-import-env.py`.
 
 ## Restore git identity
 
