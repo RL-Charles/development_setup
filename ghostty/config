@@ -1,0 +1,12 @@
+# Ghostty — matches the Windows Terminal Ubuntu profile look
+# (Catppuccin Mocha, Cascadia Mono 12). Omarchy ships Ghostty.
+#
+# Install Cascadia Mono if you want the same typeface:
+#   https://github.com/microsoft/cascadia-code/releases
+# Without it, Ghostty falls back to its default font.
+
+theme = catppuccin-mocha
+font-family = Cascadia Mono
+font-size = 12
+font-style = Semibold
+cursor-style = bar

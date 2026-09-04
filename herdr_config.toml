@@ -6,6 +6,8 @@ auto_switch = false
 [ui]
 pane_borders = true
 accent = "#89b4fa"
+# Use the host terminal cursor so Neovim can switch block (normal) vs bar (insert).
+host_cursor = "native"
 
 [keys]
 prefix = "ctrl+space"

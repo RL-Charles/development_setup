@@ -1,0 +1,39 @@
+{
+    "github.copilot.nextEditSuggestions.enabled": false,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "window.zoomLevel": -0.7,
+    "editor.minimap.enabled": false,
+    "claudeCode.preferredLocation": "panel",
+    "security.workspace.trust.untrustedFiles": "open",
+    "files.autoSave": "afterDelay",
+    "chat.mcp.gallery.enabled": true,
+    "chat.tools.urls.autoApprove": {
+        "https://code.visualstudio.com": true,
+        "https://github.com/microsoft/vscode/wiki/*": true,
+        "https://developers.procore.com": {
+            "approveRequest": true,
+            "approveResponse": false
+        }
+    },
+    "chat.tools.terminal.autoApprove": {
+        "npx vitest": true
+    },
+    "terminal.integrated.initialHint": false,
+    "chat.agent.maxRequests": 100,
+    "claudeCode.allowDangerouslySkipPermissions": true,
+    "editor.renderWhitespace": "all",
+    "chat.viewSessions.enabled": false,
+    "workbench.colorTheme": "Dark+",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+        "zsh": {
+            "path": "zsh",
+            "icon": "terminal"
+        }
+    }
+}

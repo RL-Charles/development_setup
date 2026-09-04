@@ -1,0 +1,10 @@
+{
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "Default Dark Modern",
+  "files.autoSave": "afterDelay",
+  "vim.disableExtension": true,
+  "workbench.editorAssociations": {
+    "*.excalidraw": "editor.excalidraw",
+    "*.excalidraw.json": "editor.excalidraw"
+  }
+}

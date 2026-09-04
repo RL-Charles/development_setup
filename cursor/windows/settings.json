@@ -1,0 +1,12 @@
+{
+  "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "Default Dark Modern",
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "files.autoSave": "afterDelay",
+  "python.defaultInterpreterPath": "c:\\Users\\charl\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+  "vim.disableExtension": true,
+  "workbench.editorAssociations": {
+    "*.excalidraw": "editor.excalidraw",
+    "*.excalidraw.json": "editor.excalidraw"
+  }
+}
