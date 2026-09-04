@@ -84,28 +84,17 @@ Optional afterwards: nvm, `gh`, Railway CLI, OpenCode. The zshrc sources those o
 
 ## Import TradiePro env files into a Bitwarden collection
 
-The agent does not log into your vault. You unlock `bw` in **your** terminal, then run the importer. It creates one Secure Note per env file (`tradiepro/.env.local`, …) with **hidden** custom fields. stdout is item names and key names only.
+Linux CLI is `~/.local/bin/bw`. You log in once; the agent does the import.
 
 ```bash
-# Official CLI: https://bitwarden.com/help/cli/#download-and-install
-bw login
-export BW_SESSION="$(bw unlock --raw)"
-
-cd ~/development/development_setup
-python3 scripts/bw-import-env.py --list-collections
-
-# Dry run (prints key names, writes nothing):
-TRADIEPRO_ROOT="$HOME/development/tradie_pro_refactor/tradie-pro-refactor" \
-  python3 scripts/bw-import-env.py --dry-run --collection 'Your collection name' \
-    --file "$TRADIEPRO_ROOT/.env.local" \
-    --file "$TRADIEPRO_ROOT/apps/api/.env" \
-    --file "$TRADIEPRO_ROOT/apps/web/.env.local"
-
-chmod +x scripts/bw-import-tradiepro.sh
-./scripts/bw-import-tradiepro.sh 'Your collection name'
+~/development/development_setup/scripts/bw-agent-login.sh
 ```
 
-Do not paste `BW_SESSION` or env values into Cursor chat. If you created a **folder** in the personal vault instead of an org collection, use `--folder 'Name'` on `bw-import-env.py`.
+That writes `~/.config/bitwarden-agent/session` (mode 600). Reply in Cursor `logged in`. Do not paste the session or env values into chat.
+
+The importer creates one Secure Note per env file with hidden custom fields. stdout is names only. After import: `rm -f ~/.config/bitwarden-agent/session && bw lock`.
+
+If you created a **folder** in the personal vault instead of an org collection, the agent will use `--folder` instead.
 
 ## Restore git identity
 

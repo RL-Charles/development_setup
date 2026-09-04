@@ -3,13 +3,11 @@
 
 Prints item names and env key names only. Never prints values.
 
-You must unlock the CLI in this same terminal first:
+You must log in once in your own terminal:
 
-    export BW_SESSION="$(bw unlock --raw)"
-    python3 scripts/bw-import-env.py --list-collections
-    python3 scripts/bw-import-env.py --collection 'Your collection' --file /path/to/.env
+    ~/development/development_setup/scripts/bw-agent-login.sh
 
-Do not paste BW_SESSION or env values into chat.
+Then tell the agent "logged in". Do not paste BW_SESSION or env values into chat.
 """
 
 from __future__ import annotations
@@ -29,11 +27,23 @@ from typing import Any
 FIELD_HIDDEN = 1
 ITEM_SECURE_NOTE = 2
 SECURE_NOTE_GENERIC = 0
+SESSION_FILE = Path.home() / ".config" / "bitwarden-agent" / "session"
 
 
 def die(message: str, code: int = 1) -> None:
     print(message, file=sys.stderr)
     raise SystemExit(code)
+
+
+def load_agent_session() -> None:
+    """Use ~/.config/bitwarden-agent/session if BW_SESSION is unset. Never print it."""
+    if os.environ.get("BW_SESSION"):
+        return
+    if not SESSION_FILE.is_file():
+        return
+    token = SESSION_FILE.read_text(encoding="utf-8").strip()
+    if token:
+        os.environ["BW_SESSION"] = token
 
 
 def bw_bin() -> str:
@@ -78,16 +88,17 @@ def encode(payload: Any) -> str:
 
 
 def require_unlocked() -> dict[str, Any]:
+    load_agent_session()
     status = bw("status")
     if not isinstance(status, dict):
         die("bw status returned unexpected output. Is the CLI installed?")
     state = status.get("status")
     if state == "unauthenticated":
-        die("bw is not logged in. In this terminal run: bw login")
+        die("bw is not logged in. In your terminal run: ~/development/development_setup/scripts/bw-agent-login.sh")
     if state != "unlocked":
         die(
-            "bw vault is locked. In this terminal run:\n"
-            '  export BW_SESSION="$(bw unlock --raw)"'
+            "bw vault is locked. In your terminal run:\n"
+            "  ~/development/development_setup/scripts/bw-agent-login.sh"
         )
     return status
 
