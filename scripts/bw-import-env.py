@@ -69,7 +69,8 @@ def bw(*args: str, input_bytes: bytes | None = None) -> Any:
         err = result.stderr.decode("utf-8", errors="replace").strip()
         out = result.stdout.decode("utf-8", errors="replace").strip()
         # Errors are safe to show; stdout from create/get can contain secrets.
-        die(f"bw {' '.join(args)} failed ({result.returncode}): {err or 'no stderr'}")
+        safe_args = [arg if len(arg) < 80 else "[redacted]" for arg in args]
+        die(f"bw {' '.join(safe_args)} failed ({result.returncode}): {err or 'no stderr'}")
     text = result.stdout.decode("utf-8", errors="replace").strip()
     if not text:
         return None
@@ -163,8 +164,27 @@ def pick_by_name(kind: str, name: str) -> dict[str, str]:
     return matches[0]
 
 
-def item_name_for(path: Path, prefix: str) -> str:
-    return f"{prefix}{path.name}" if prefix.endswith("/") or not prefix else f"{prefix}/{path.name}"
+def item_name_for(path: Path, prefix: str, relative: str | None = None) -> str:
+    leaf = relative or path.name
+    prefix = prefix if prefix.endswith("/") or not prefix else f"{prefix}/"
+    return f"{prefix}{leaf}"
+
+
+def relative_item_paths(paths: list[Path]) -> dict[Path, str]:
+    """Name items by path relative to their common parent so .env.local files stay unique."""
+    if len(paths) == 1:
+        return {paths[0]: paths[0].name}
+    try:
+        common = Path(os.path.commonpath([str(path) for path in paths]))
+    except ValueError:
+        return {path: f"{path.parent.name}/{path.name}" for path in paths}
+    names: dict[Path, str] = {}
+    for path in paths:
+        rel = path.relative_to(common).as_posix()
+        names[path] = rel if rel != "." else path.name
+    if len(set(names.values())) != len(names):
+        return {path: f"{path.parent.name}/{path.name}" for path in paths}
+    return names
 
 
 def find_existing(name: str, collection_id: str | None, folder_id: str | None) -> dict[str, str] | None:
@@ -192,7 +212,7 @@ def build_item(
 ) -> dict[str, Any]:
     keys = [key for key, _ in pairs]
     notes = (
-        f"Imported from {path.name} on {datetime.now(timezone.utc).strftime('%Y-%m-%d')} UTC.\n"
+        f"Imported from {path} on {datetime.now(timezone.utc).strftime('%Y-%m-%d')} UTC.\n"
         f"Keys: {', '.join(keys)}"
     )
     item: dict[str, Any] = {
@@ -204,23 +224,25 @@ def build_item(
         "secureNote": {"type": SECURE_NOTE_GENERIC},
         "fields": [{"name": key, "value": value, "type": FIELD_HIDDEN} for key, value in pairs],
     }
-    if organization_id:
-        item["organizationId"] = organization_id
     if folder_id:
         item["folderId"] = folder_id
     return item
 
 
 def assign_collection(item_id: str, organization_id: str, collection_id: str) -> None:
-    encoded = encode([collection_id])
-    bw(
-        "edit",
-        "item-collections",
-        item_id,
-        encoded,
-        "--organizationid",
-        organization_id,
+    # Create in the personal vault, then move into the org collection.
+    # Setting organizationId on create looks successful but the cipher is not
+    # stored on the server (edit/delete then return "Resource not found").
+    encoded = encode([collection_id]).encode("utf-8")
+    result = subprocess.run(
+        [bw_bin(), "move", item_id, organization_id],
+        input=encoded,
+        capture_output=True,
+        env=os.environ.copy(),
     )
+    if result.returncode != 0:
+        err = result.stderr.decode("utf-8", errors="replace").strip()
+        die(f"bw move into collection failed ({result.returncode}): {err or 'no stderr'}")
 
 
 def upsert_item(
@@ -246,7 +268,7 @@ def upsert_item(
         name=name,
         path=path,
         pairs=pairs,
-        organization_id=organization_id,
+        organization_id=None,
         folder_id=folder_id,
     )
     encoded = encode(payload)
@@ -337,14 +359,16 @@ def main() -> None:
     if collection and not collection["organizationId"]:
         die("That collection has no organization id; pass --folder if this is a personal folder.")
 
+    resolved = [Path(raw_path).expanduser().resolve() for raw_path in args.files]
+    relatives = relative_item_paths(resolved)
+
     created = updated = 0
-    for raw_path in args.files:
-        path = Path(raw_path).expanduser().resolve()
+    for path in resolved:
         pairs = parse_env_file(path)
         if not pairs:
             print(f"skip {path.name} (no KEY=VALUE lines)")
             continue
-        name = item_name_for(path, args.item_prefix)
+        name = item_name_for(path, args.item_prefix, relatives[path])
         action = upsert_item(
             name=name,
             path=path,
