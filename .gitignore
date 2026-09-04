@@ -2,3 +2,4 @@
 *.log
 *.sock
 session.json
+__pycache__/
