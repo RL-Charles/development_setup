@@ -1,0 +1,79 @@
+[
+  {
+    "name": "New Tab",
+    "id": "newtab@mozilla.org",
+    "type": "extension",
+    "active": true,
+    "location": "app-profile"
+  },
+  {
+    "name": "Form Autofill",
+    "id": "formautofill@mozilla.org",
+    "type": "extension",
+    "active": true,
+    "location": "app-builtin-addons"
+  },
+  {
+    "name": "IPP Activator",
+    "id": "ipp-activator@mozilla.com",
+    "type": "extension",
+    "active": true,
+    "location": "app-builtin-addons"
+  },
+  {
+    "name": "New Tab",
+    "id": "newtab@mozilla.org",
+    "type": "extension",
+    "active": false,
+    "location": "app-builtin-addons"
+  },
+  {
+    "name": "Picture-In-Picture",
+    "id": "pictureinpicture@mozilla.org",
+    "type": "extension",
+    "active": true,
+    "location": "app-builtin-addons"
+  },
+  {
+    "name": "Add-ons Search Detection",
+    "id": "addons-search-detection@mozilla.com",
+    "type": "extension",
+    "active": true,
+    "location": "app-builtin-addons"
+  },
+  {
+    "name": "Web Compatibility Interventions",
+    "id": "webcompat@mozilla.org",
+    "type": "extension",
+    "active": true,
+    "location": "app-builtin-addons"
+  },
+  {
+    "name": "System theme \u2014 auto",
+    "id": "default-theme@mozilla.org",
+    "type": "theme",
+    "active": false,
+    "location": "app-builtin"
+  },
+  {
+    "name": "Light",
+    "id": "firefox-compact-light@mozilla.org",
+    "type": "theme",
+    "active": false,
+    "location": "app-builtin"
+  },
+  {
+    "name": "Dark",
+    "id": "firefox-compact-dark@mozilla.org",
+    "type": "theme",
+    "active": false,
+    "location": "app-builtin"
+  },
+  {
+    "name": "Firefox Alpenglow",
+    "id": "firefox-alpenglow@mozilla.org",
+    "type": "theme",
+    "active": true,
+    "location": "app-builtin"
+  }
+]

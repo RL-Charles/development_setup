@@ -1,0 +1,29 @@
+{
+  "pinned": [],
+  "open": [
+    {
+      "window": 1,
+      "title": "Vercel",
+      "url": "https://vercel.com/login/callback/verify/2fa?token=<redacted>&next=https%3A%2F%2Fvercel.com%2Flogin%2Fcallback%3Fnext%3D%252Ftradie-pro%26redirect%3Dserver",
+      "pinned": false
+    },
+    {
+      "window": 1,
+      "title": "Inbox (3,140) - charleswdmowbray@gmail.com - Gmail",
+      "url": "https://mail.google.com/mail/u/0/#inbox",
+      "pinned": false
+    },
+    {
+      "window": 1,
+      "title": "Support Terms",
+      "url": "https://vercel.com/legal/support-terms",
+      "pinned": false
+    },
+    {
+      "window": 1,
+      "title": "Recover account access without 2FA",
+      "url": "https://vercel.com/accountrecovery/verified",
+      "pinned": false
+    }
+  ]
+}

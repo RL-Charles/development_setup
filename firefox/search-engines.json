@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Google",
+    "id": "google",
+    "isAppProvided": null
+  },
+  {
+    "name": "Amazon.com",
+    "id": "amazondotcom-us",
+    "isAppProvided": null
+  },
+  {
+    "name": "Bing",
+    "id": "bing",
+    "isAppProvided": null
+  },
+  {
+    "name": "DuckDuckGo",
+    "id": "ddg",
+    "isAppProvided": null
+  },
+  {
+    "name": "Perplexity",
+    "id": "perplexity",
+    "isAppProvided": null
+  },
+  {
+    "name": "Wikipedia (en)",
+    "id": "wikipedia",
+    "isAppProvided": null
+  },
+  {
+    "name": "eBay",
+    "id": "ebay",
+    "isAppProvided": null
+  }
+]

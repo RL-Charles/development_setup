@@ -31,6 +31,7 @@ Current split (kept as-is, not unified):
 | `cursor/windows/settings.json` | Windows Cursor only |
 | `windows-terminal/settings.json` | Windows Terminal `LocalState/settings.json` |
 | `ghostty/config` | `~/.config/ghostty/config` (Omarchy host terminal) |
+| `firefox/bookmarks.html` | Firefox → Import Bookmarks from HTML |
 
 Do not copy herdr logs, sockets, or `session.json`. Those are local runtime files.
 Do not copy Cursor/VS Code `auth.json`, `globalStorage`, or chat history.
@@ -41,6 +42,7 @@ Do not copy Cursor/VS Code `auth.json`, `globalStorage`, or chat history.
 - TradiePro `.env.local` / `apps/api/.env` — copy privately or import into Bitwarden with `scripts/bw-import-tradiepro.sh`; never commit
 - `~/.ssh` private keys (this WSL user had none; GitHub used `gh`)
 - zsh history, nvim plugin caches, `node_modules`
+- Firefox passwords, cookies, or a full profile — passwords are in Bitwarden folder **Firefox**; bookmarks are in `firefox/`
 
 ## Restore Neovim
 
@@ -139,6 +141,18 @@ cp development_setup/ghostty/config ~/.config/ghostty/config
 ```
 
 Install Cascadia Mono if you want the same typeface as Windows Terminal.
+
+## Restore Firefox bookmarks (Linux / Omarchy)
+
+Passwords live in Bitwarden folder **Firefox**, not in this repo.
+
+```bash
+# after cloning/pulling this repo
+# Firefox → Bookmarks → Manage bookmarks → Import and Backup
+# → Import Bookmarks from HTML → firefox/bookmarks.html
+```
+
+Details: `firefox/README.md`.
 
 ## Neovim navigation (QWERTY)
 
