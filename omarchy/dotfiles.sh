@@ -46,7 +46,7 @@ export_style() {
   local bg
   bg=$(readlink -f "$HOME/.local/state/omarchy/current/background")
   {
-    echo "THEME=$(omarchy theme current)"
+    echo "THEME=\"$(cat "$HOME/.local/state/omarchy/current/theme.name")\""
     echo "FONT=\"$(omarchy font current)\""
     echo "BACKGROUND=\"${bg#"$HOME"/}\""
   } >"$here/style.env"
