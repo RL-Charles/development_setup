@@ -22,6 +22,8 @@
 .config/omarchy/plugins/charlesmowbray.lock/
 .config/omarchy/plugins/charlesmowbray.nightlight/
 .config/omarchy/backgrounds/tokyo-night/
+Wallpapers/
+Pictures/Omarchy-Wallpaper-Catalogue/
 
 # Terminals, shell, editors (older entries keep their original repo paths)
 .config/kitty/kitty.conf
