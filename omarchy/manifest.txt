@@ -1,0 +1,53 @@
+# Files and directories that make up this machine's Omarchy setup.
+# Format: <path under $HOME> [path in repo]
+# Without a repo path the file lives at omarchy/home/<path under $HOME>.
+# A trailing slash marks a directory (synced with rsync, *.bak* excluded).
+
+# Hyprland
+.config/hypr/autostart.lua
+.config/hypr/bindings.lua
+.config/hypr/hyprland.lua
+.config/hypr/input.lua
+.config/hypr/monitors.lua
+.config/hypr/hyprsunset.conf
+.config/hypr/xdph.conf
+
+# Omarchy shell, menu, branding, cloned plugins, wallpapers
+.config/omarchy/shell.json
+.config/omarchy/shell.toml
+.config/omarchy/extensions/omarchy-menu.jsonc
+.config/omarchy/branding/about.txt
+.config/omarchy/branding/screensaver.txt
+.config/omarchy/defaults/agent
+.config/omarchy/plugins/charlesmowbray.lock/
+.config/omarchy/plugins/charlesmowbray.nightlight/
+.config/omarchy/backgrounds/tokyo-night/
+
+# Terminals, shell, editors (older entries keep their original repo paths)
+.config/kitty/kitty.conf
+.config/ghostty/config                 ghostty/config
+.config/starship.toml                  starship.toml
+.zshrc                                 zsh/.zshrc
+.bashrc
+.XCompose
+.config/herdr/config.toml              herdr_config.toml
+.config/nvim/                          nvim/
+
+# Git, toolchain, desktop defaults
+.gitconfig                             git/.gitconfig
+.config/git/ignore
+.config/mise/config.toml
+.config/voxtype/config.toml
+.config/xdg-terminals.list
+.config/mimeapps.list
+.config/environment.d/omarchy-firefox-wayland.conf
+.config/gtk-3.0/bookmarks
+
+# User services and their scripts
+.config/systemd/user/omarchy-keep-awake-on-ac.service
+.config/systemd/user/omarchy-captive-portal.service
+.config/systemd/user/voxtype.service
+.config/systemd/user/cua-driver.service
+.local/bin/omarchy-keep-awake-on-ac
+.local/bin/omarchy-captive-portal-watch
+.local/bin/omarchy-captive-portal-prompt

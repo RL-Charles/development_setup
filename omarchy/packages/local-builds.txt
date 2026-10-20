@@ -1,0 +1,2 @@
+jcd543-trigger6-dkms
+mct_t6-dkms

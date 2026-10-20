@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Watch NetworkManager's connectivity state and offer the sign-in page once per
+# captive portal. NM already runs the same probe your phone does; nothing in the
+# session listens to the "portal" verdict, so this does.
+
+prompted=no
+
+check() {
+  # `check` forces a fresh probe rather than reading a cached verdict.
+  if [[ $(nmcli -t networking connectivity check 2>/dev/null) == portal ]]; then
+    [[ $prompted == yes ]] && return
+    prompted=yes
+    omarchy launch tui --app-id=TUI.float omarchy-captive-portal-prompt
+  else
+    # Re-arm so the next network (or a failed sign-in) prompts again.
+    prompted=no
+  fi
+}
+
+check
+
+while read -r line; do
+  case "$line" in
+    "Connectivity is now"*) check ;;
+    # A fresh association reaches NM before its connectivity probe does.
+    *": connected"*) sleep 3 && check ;;
+  esac
+done < <(nmcli monitor)

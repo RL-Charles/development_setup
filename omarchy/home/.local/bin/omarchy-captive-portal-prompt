@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# Ask, in a floating terminal, before opening a network's sign-in page.
+# Launched by omarchy-captive-portal-watch; safe to run by hand to test.
+
+source omarchy-restart-gum
+
+probe="${OMARCHY_PORTAL_PROBE:-http://ping.archlinux.org/nm-check.txt}"
+
+portal_url() {
+  local device url
+
+  # RFC 8910: the network may hand the portal URL over in DHCP option 114.
+  device=$(nmcli -t -f DEVICE,STATE device status 2>/dev/null |
+    awk -F: '$2 == "connected" { print $1; exit }')
+  if [[ -n $device ]]; then
+    url=$(nmcli -t -f DHCP4.OPTION device show "$device" 2>/dev/null |
+      sed -n 's/.*captive[-_]portal[^=]*= *//p' | head -1)
+    [[ -n $url ]] && { printf '%s\n' "$url"; return; }
+  fi
+
+  # Otherwise follow the connectivity probe and report where it gets redirected.
+  url=$(curl -sS -m 5 -o /dev/null -w '%{redirect_url}' "$probe" 2>/dev/null)
+
+  # No redirect means the portal intercepts transparently: the probe URL itself
+  # still lands on the sign-in page.
+  printf '%s\n' "${url:-$probe}"
+}
+
+ssid=$(nmcli -t -f ACTIVE,SSID device wifi list 2>/dev/null | sed -n 's/^yes://p' | head -1)
+url=$(portal_url)
+
+clear
+gum style --border rounded --align center --width 70 --padding "1 2" --margin "1 0" \
+  "This network needs you to sign in${ssid:+  ·  $ssid}" \
+  "" \
+  "$url"
+
+if gum confirm "Open the sign-in page?"; then
+  omarchy launch browser "$url"
+fi

@@ -1,7 +1,7 @@
 # development_setup
 
-Dotfiles for restoring the same editor, multiplexer, shell, and colours on a
-new machine (WSL today, Omarchy next).
+Dotfiles for restoring the same desktop, editor, multiplexer, shell, and colours
+on a new machine (Omarchy 4 on Arch, plus Windows/WSL copies).
 
 The look lives in config, not in compiled plugin caches or login tokens.
 
@@ -32,6 +32,7 @@ Current split (kept as-is, not unified):
 | `windows-terminal/settings.json` | Windows Terminal `LocalState/settings.json` |
 | `ghostty/config` | `~/.config/ghostty/config` (Omarchy host terminal) |
 | `firefox/bookmarks.html` | Firefox → Import Bookmarks from HTML |
+| `omarchy/` | Hyprland, Omarchy shell, services, packages — see below |
 
 Do not copy herdr logs, sockets, or `session.json`. Those are local runtime files.
 Do not copy Cursor/VS Code `auth.json`, `globalStorage`, or chat history.
@@ -43,6 +44,41 @@ Do not copy Cursor/VS Code `auth.json`, `globalStorage`, or chat history.
 - `~/.ssh` private keys (this WSL user had none; GitHub used `gh`)
 - zsh history, nvim plugin caches, `node_modules`
 - Firefox passwords, cookies, or a full profile — passwords are in Bitwarden folder **Firefox**; bookmarks are in `firefox/`
+
+## Omarchy (one command)
+
+Everything Omarchy-specific is listed in `omarchy/manifest.txt` and synced by
+`omarchy/dotfiles.sh`. Files live under `omarchy/home/` at their `$HOME` path;
+older entries (nvim, ghostty, zsh, starship, herdr, git) keep their repo paths.
+
+```bash
+# On this machine: capture changes, then commit
+omarchy/dotfiles.sh export && git status
+
+# On a fresh Omarchy install
+git clone https://github.com/RL-Charles/development_setup.git ~/development_setup
+cd ~/development_setup
+omarchy/dotfiles.sh packages   # pacman + AUR + mise tools
+omarchy/dotfiles.sh install    # copies files, backs up to ~/.config-backups/, enables services
+omarchy theme set tokyo-night
+```
+
+| Area | What is customized |
+| --- | --- |
+| Hyprland | `SUPER+F` full screen keeps browser tabs, herdr on `SUPER+CTRL+RETURN`, 3-finger swipe, sensitivity 0.05, laptop + HP X27q layout |
+| Shell / bar | transparent bar, 12h clock with date, OmaCal widget, idle 5 min / lock 10 min |
+| Plugins | cloned `charlesmowbray.lock` and `charlesmowbray.nightlight` replace the stock ones |
+| Night light | hyprsunset 4000 K from 21:00 to 02:00, toggled via the shell |
+| Services | keep-awake on AC, captive-portal prompt, voxtype, cua-driver |
+| Look | Tokyo Night backgrounds, custom About/screensaver branding, kitty tweaks |
+
+Not restored by `install` (do these by hand):
+
+- **Dock driver** — `omarchy/packages/local-builds.txt` are built from `~/Development/jcd543-mct-t6-linux-driver`
+- **OmaCal** — install the AppImage; it adds its own `omacal.upcoming` bar plugin
+- **herdr no-tree build** — `SUPER+CTRL+RETURN` expects it at `~/.local/lib/herdr-no-tree/0.9.0/herdr`
+- **Monitors** — `monitors.lua` is for this ThinkPad + dock; rerun `nwg-displays` elsewhere
+- Calametra user services stay in that project, not here
 
 ## Restore Neovim
 

@@ -1,0 +1,17 @@
+[Unit]
+Description=Cua Driver background daemon
+Documentation=https://cua.ai/docs/how-to-guides/driver/keep-running
+After=graphical-session.target
+PartOf=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/lib/cua-driver/cua-driver serve
+Restart=on-failure
+RestartSec=2
+Environment=XDG_RUNTIME_DIR=%t
+Environment=CUA_DRIVER_RS_ENABLE_WAYLAND=1
+
+[Install]
+WantedBy=graphical-session.target

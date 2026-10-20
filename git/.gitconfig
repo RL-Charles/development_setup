@@ -2,6 +2,6 @@
 	name = rl-charles
 	email = charleswdmowbray@gmail.com
 [credential "https://github.com"]
-	helper = !/usr/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = !/usr/bin/gh auth git-credential
+	helper = !gh auth git-credential

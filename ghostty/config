@@ -5,8 +5,15 @@
 #   https://github.com/microsoft/cascadia-code/releases
 # Without it, Ghostty falls back to its default font.
 
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 font-family = Cascadia Mono
-font-size = 12
+font-size = 9
 font-style = Semibold
 cursor-style = bar
+
+# Clipboard behavior: selections work like Windows/Cursor, and Omarchy's
+# SUPER+V terminal shortcut (Shift+Insert) pastes the normal clipboard.
+copy-on-select = clipboard
+clipboard-write = allow
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard

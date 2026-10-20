@@ -1,0 +1,12 @@
+[Unit]
+Description=Keep Omarchy awake while connected to external power
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/omarchy-keep-awake-on-ac
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=default.target

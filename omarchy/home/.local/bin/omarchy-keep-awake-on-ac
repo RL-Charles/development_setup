@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -u
+
+poll_seconds=5
+
+on_external_power() {
+  local supply supply_type online
+
+  for supply in /sys/class/power_supply/*; do
+    [[ -f "$supply/type" && -f "$supply/online" ]] || continue
+
+    read -r supply_type < "$supply/type"
+    case "$supply_type" in
+      Mains|USB|USB_C|Wireless)
+        read -r online < "$supply/online"
+        [[ "$online" == "1" ]] && return 0
+        ;;
+    esac
+  done
+
+  return 1
+}
+
+hold_while_on_external_power() {
+  while on_external_power; do
+    sleep "$poll_seconds"
+  done
+}
+
+if [[ "${1:-}" == "hold" ]]; then
+  hold_while_on_external_power
+  exit 0
+fi
+
+while true; do
+  if on_external_power; then
+    systemd-inhibit \
+      --what=idle:handle-lid-switch \
+      --who="Omarchy AC keep-awake" \
+      --why="Keep running tasks active while on external power" \
+      --mode=block \
+      "$0" hold
+  else
+    sleep "$poll_seconds"
+  fi
+done

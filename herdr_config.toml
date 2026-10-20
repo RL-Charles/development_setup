@@ -9,5 +9,6 @@ accent = "#89b4fa"
 # Use the host terminal cursor so Neovim can switch block (normal) vs bar (insert).
 host_cursor = "native"
 
+show_agent_labels_on_pane_borders = true
 [keys]
 prefix = "ctrl+space"
