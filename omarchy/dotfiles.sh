@@ -42,8 +42,19 @@ export_packages() {
   done
 }
 
+export_style() {
+  local bg
+  bg=$(readlink -f "$HOME/.local/state/omarchy/current/background")
+  {
+    echo "THEME=$(omarchy theme current)"
+    echo "FONT=\"$(omarchy font current)\""
+    echo "BACKGROUND=\"${bg#"$HOME"/}\""
+  } >"$here/style.env"
+}
+
 cmd_export() {
   mkdir -p "$here/packages"
+  export_style
   entries | while IFS=$'\t' read -r home_path repo_path; do
     if [[ -e $HOME/$home_path ]]; then
       sync_path "$HOME/$home_path" "$repo/$repo_path"
@@ -77,6 +88,12 @@ cmd_install() {
   for unit in "${services[@]}"; do
     systemctl --user enable "$unit" || echo "could not enable $unit (is its package installed?)" >&2
   done
+  # shellcheck source=/dev/null
+  source "$here/style.env"
+  omarchy theme set "$THEME"
+  omarchy font set "$FONT"
+  [[ -f $HOME/$BACKGROUND ]] && omarchy theme bg set "$HOME/$BACKGROUND"
+
   hyprctl reload >/dev/null 2>&1 && hyprctl configerrors || true
   omarchy-restart-xcompose >/dev/null 2>&1 || true
 }

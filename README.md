@@ -59,8 +59,7 @@ omarchy/dotfiles.sh export && git status
 git clone https://github.com/RL-Charles/development_setup.git ~/development_setup
 cd ~/development_setup
 omarchy/dotfiles.sh packages   # pacman + AUR + mise tools
-omarchy/dotfiles.sh install    # copies files, backs up to ~/.config-backups/, enables services
-omarchy theme set tokyo-night
+omarchy/dotfiles.sh install    # copies files, backs up, enables services, applies theme/font/background
 ```
 
 | Area | What is customized |
