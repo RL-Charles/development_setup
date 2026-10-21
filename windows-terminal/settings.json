@@ -3,11 +3,10 @@
     "$schema": "https://aka.ms/terminal-profiles-schema",
     "actions": [],
     "copyFormatting": "none",
-    "copyOnSelect": false,
-    "defaultProfile": "{76e98450-5445-5ad9-98d7-b55dc139b80c}",
+    "copyOnSelect": true,
+    "defaultProfile": "{605ff1ce-b393-57d2-b361-65674ac8e885}",
     "theme": "Catppuccin Mocha",
-    "keybindings":
-    [
+    "keybindings": [
         {
             "id": "Terminal.CopyToClipboard",
             "keys": "ctrl+c"
@@ -23,19 +22,57 @@
         {
             "id": "Terminal.DuplicatePaneAuto",
             "keys": "alt+shift+d"
+        },
+        {
+            "id": "Terminal.ToggleFocusMode",
+            "keys": "ctrl+alt+shift+f"
         }
     ],
-    "newTabMenu":
-    [
+    "newTabMenu": [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles":
-    {
+    "profiles": {
         "defaults": {},
-        "list":
-        [
+        "list": [
+            {
+                "antialiasingMode": "grayscale",
+                "colorScheme": "Catppuccin Mocha",
+                "font": {
+                    "face": "JetBrainsMono Nerd Font",
+                    "size": 9,
+                    "weight": "medium"
+                },
+                "guid": "{605ff1ce-b393-57d2-b361-65674ac8e885}",
+                "hidden": false,
+                "intenseTextStyle": "all",
+                "name": "Ubuntu",
+                "opacity": 100,
+                "padding": "14",
+                "scrollbarState": "hidden",
+                "useAcrylic": false,
+                "source": "Microsoft.WSL",
+                "startingDirectory": "~"
+            },
+            {
+                "guid": "{7ce82f97-50e1-5b2b-a05d-06dd9f126f2d}",
+                "name": "herdr",
+                "commandline": "wsl.exe -d Ubuntu --cd ~ -- bash -ic \"exec herdr\"",
+                "colorScheme": "Tokyo Night Moon",
+                "font": {
+                    "face": "JetBrainsMono Nerd Font",
+                    "size": 9,
+                    "weight": "medium"
+                },
+                "antialiasingMode": "grayscale",
+                "intenseTextStyle": "all",
+                "padding": "14",
+                "scrollbarState": "hidden",
+                "opacity": 100,
+                "useAcrylic": false,
+                "hidden": false
+            },
             {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
@@ -53,52 +90,10 @@
                 "hidden": false,
                 "name": "Azure Cloud Shell",
                 "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-                "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
-            },
-            {
-                "guid": "{01ee3097-2527-53bc-bf04-20c81e0dc78d}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{8cea7833-d55e-509e-8e26-1a916d169daf}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{47302f9c-1ac4-566c-aa3e-8cf29889d6ab}",
-                "hidden": false,
-                "name": "Nushell",
-                "source": "nu"
-            },
-            {
-                "antialiasingMode": "cleartype",
-                "colorScheme": "Catppuccin Mocha",
-                "font":
-                {
-                    "face": "Cascadia Mono",
-                    "size": 12,
-                    "weight": "semi-bold"
-                },
-                "guid": "{76e98450-5445-5ad9-98d7-b55dc139b80c}",
-                "hidden": false,
-                "intenseTextStyle": "all",
-                "name": "Ubuntu",
-                "opacity": 100,
-                "useAcrylic": false,
-                "source": "Microsoft.WSL"
             }
         ]
     },
-    "schemes":
-    [
+    "schemes": [
         {
             "name": "Catppuccin Mocha",
             "cursorColor": "#F5E0DC",
@@ -113,7 +108,7 @@
             "purple": "#F5C2E7",
             "cyan": "#94E2D5",
             "white": "#BAC2DE",
-            "brightBlack": "#585B70",
+            "brightBlack": "#9399B2",
             "brightRed": "#F38BA8",
             "brightGreen": "#A6E3A1",
             "brightYellow": "#F9E2AF",
@@ -121,10 +116,101 @@
             "brightPurple": "#F5C2E7",
             "brightCyan": "#94E2D5",
             "brightWhite": "#A6ADC8"
+        },
+        {
+            "background": "#222436",
+            "black": "#1b1d2b",
+            "blue": "#82aaff",
+            "brightBlack": "#828bb8",
+            "brightBlue": "#82aaff",
+            "brightCyan": "#86e1fc",
+            "brightGreen": "#c3e88d",
+            "brightPurple": "#fca7ea",
+            "brightRed": "#ff757f",
+            "brightWhite": "#c8d3f5",
+            "brightYellow": "#ffc777",
+            "cursorColor": "#c8d3f5",
+            "cyan": "#86e1fc",
+            "foreground": "#c8d3f5",
+            "green": "#c3e88d",
+            "name": "Tokyo Night Moon",
+            "purple": "#c099ff",
+            "red": "#ff757f",
+            "selectionBackground": "#2d3f76",
+            "white": "#828bb8",
+            "yellow": "#ffc777"
+        },
+        {
+            "name": "Tokyo Night",
+            "background": "#1a1b26",
+            "foreground": "#c0caf5",
+            "cursorColor": "#c0caf5",
+            "selectionBackground": "#283457",
+            "black": "#15161e",
+            "red": "#f7768e",
+            "green": "#9ece6a",
+            "yellow": "#e0af68",
+            "blue": "#7aa2f7",
+            "purple": "#bb9af7",
+            "cyan": "#7dcfff",
+            "white": "#a9b1d6",
+            "brightBlack": "#828bb8",
+            "brightRed": "#f7768e",
+            "brightGreen": "#9ece6a",
+            "brightYellow": "#e0af68",
+            "brightBlue": "#7aa2f7",
+            "brightPurple": "#bb9af7",
+            "brightCyan": "#7dcfff",
+            "brightWhite": "#c0caf5"
+        },
+        {
+            "name": "Gruvbox Dark",
+            "background": "#282828",
+            "foreground": "#ebdbb2",
+            "cursorColor": "#ebdbb2",
+            "selectionBackground": "#504945",
+            "black": "#282828",
+            "red": "#cc241d",
+            "green": "#98971a",
+            "yellow": "#d79921",
+            "blue": "#458588",
+            "purple": "#b16286",
+            "cyan": "#689d6a",
+            "white": "#a89984",
+            "brightBlack": "#928374",
+            "brightRed": "#fb4934",
+            "brightGreen": "#b8bb26",
+            "brightYellow": "#fabd2f",
+            "brightBlue": "#83a598",
+            "brightPurple": "#d3869b",
+            "brightCyan": "#8ec07c",
+            "brightWhite": "#ebdbb2"
+        },
+        {
+            "name": "Rose Pine",
+            "background": "#191724",
+            "foreground": "#e0def4",
+            "cursorColor": "#e0def4",
+            "selectionBackground": "#403d52",
+            "black": "#26233a",
+            "red": "#eb6f92",
+            "green": "#31748f",
+            "yellow": "#f6c177",
+            "blue": "#9ccfd8",
+            "purple": "#c4a7e7",
+            "cyan": "#ebbcba",
+            "white": "#e0def4",
+            "brightBlack": "#908caa",
+            "brightRed": "#eb6f92",
+            "brightGreen": "#31748f",
+            "brightYellow": "#f6c177",
+            "brightBlue": "#9ccfd8",
+            "brightPurple": "#c4a7e7",
+            "brightCyan": "#ebbcba",
+            "brightWhite": "#e0def4"
         }
     ],
-    "themes":
-    [
+    "themes": [
         {
             "name": "Catppuccin Mocha",
             "tab": {
@@ -140,5 +226,6 @@
                 "applicationTheme": "dark"
             }
         }
-    ]
+    ],
+    "launchMode": "focus"
 }

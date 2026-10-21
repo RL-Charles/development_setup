@@ -1,0 +1,34 @@
+# Files and directories that make up this machine's WSL + Windows setup.
+# Format: <path> [path in repo]
+# <path> is under the WSL $HOME, or under the Windows user profile when it
+# starts with "win:". Without a repo path the file lives at wsl/home/<path>
+# (or wsl/windows/<path> for win: entries).
+# A trailing slash marks a directory (synced with rsync, *.bak* excluded).
+
+# Shell, prompt, toolchain
+.bashrc
+.config/mise/config.toml
+.config/starship.toml                  starship.toml
+
+# Editor, multiplexer
+.config/nvim/                          nvim/
+.config/herdr/config.toml              herdr_config.toml
+.local/bin/herdr-theme
+
+# Git
+.gitconfig                             git/.gitconfig
+.config/git/ignore                     omarchy/home/.config/git/ignore
+
+# Claude Code (user-level instructions and settings, no credentials)
+.claude/CLAUDE.md
+.claude/settings.json
+
+# Windows side
+win:AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json   windows-terminal/settings.json
+win:.glzr/glazewm/config.yaml
+win:.wezterm.lua                       wezterm/.wezterm.lua
+win:.XCompose
+win:.config/copy-popup/copy-popup.ps1
+win:.config/autohotkey/winkey.ahk
+win:.glzr/zebar/settings.json
+win:.glzr/zebar/omarchy/

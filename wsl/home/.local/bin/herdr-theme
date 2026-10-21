@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Switch the herdr window's colours in one go.
+#   herdr-theme          list Windows Terminal colour schemes (* = current)
+#   herdr-theme <name>   use that scheme for the herdr profile (case-insensitive,
+#                        unique prefix is enough, e.g. "herdr-theme gruv")
+# Herdr's own theme stays on "terminal", so its UI follows the scheme too.
+set -euo pipefail
+
+profile=herdr
+local_appdata=$(cd /mnt/c && cmd.exe /c 'echo %LOCALAPPDATA%' 2>/dev/null | tr -d '\r')
+wt_settings="$(wslpath "$local_appdata")/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json"
+herdr_config="${XDG_CONFIG_HOME:-$HOME/.config}/herdr/config.toml"
+
+python3 - "$wt_settings" "$profile" "${1:-}" <<'EOF'
+import json, sys
+path, profile, want = sys.argv[1:]
+with open(path, encoding="utf-8-sig") as f:
+    settings = json.load(f)
+builtin = ["Campbell", "Campbell Powershell", "Vintage", "One Half Dark", "One Half Light",
+           "Solarized Dark", "Solarized Light", "Tango Dark", "Tango Light", "Dark+", "Ottosson"]
+names = [s["name"] for s in settings.get("schemes", [])] + [b for b in builtin]
+target = next(p for p in settings["profiles"]["list"] if p.get("name") == profile)
+current = target.get("colorScheme")
+
+if not want:
+    for n in names:
+        print(("* " if n == current else "  ") + n)
+    sys.exit(0)
+
+matches = [n for n in names if n.lower() == want.lower()] or \
+          [n for n in names if n.lower().startswith(want.lower())]
+if len(matches) != 1:
+    sys.exit(f"herdr-theme: '{want}' matches {matches or 'nothing'}; run herdr-theme to list schemes")
+target["colorScheme"] = matches[0]
+with open(path, "w", encoding="utf-8") as f:
+    json.dump(settings, f, indent=4, ensure_ascii=False)
+    f.write("\n")
+print(f"herdr: {matches[0]}")
+EOF
+
+[[ -n ${1:-} ]] || exit 0
+
+# Keep herdr's UI on the terminal palette, then have running clients re-read it.
+if ! grep -q '^name = "terminal"' "$herdr_config"; then
+  sed -i 's/^name = ".*"/name = "terminal"/' "$herdr_config"
+  herdr server reload-config >/dev/null
+fi
+pgrep -a -x herdr | awk '$3 != "server" {print $1}' | xargs -r kill -WINCH

@@ -1,0 +1,91 @@
+<!doctype html>
+<!-- Omarchy-style top bar for GlazeWM: workspaces 1-5 always shown (plus any
+     other that has windows), the focused one highlighted; clock in the middle.
+     Tokyo Night colours to match the GlazeWM borders. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root {
+        --bg: #1a1b26;
+        --fg: #a9b1d6;
+        --muted: #565f89;
+        --accent: #7aa2f7;
+      }
+      html, body { margin: 0; height: 100%; overflow: hidden; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font: 600 12px 'CaskaydiaMono Nerd Font', 'Cascadia Mono', ui-monospace, monospace;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        padding: 0 10px;
+        user-select: none;
+      }
+      #workspaces { display: flex; gap: 2px; }
+      .ws {
+        all: unset;
+        cursor: pointer;
+        min-width: 22px;
+        padding: 1px 4px;
+        text-align: center;
+        color: var(--muted);
+      }
+      .ws.occupied { color: var(--fg); }
+      .ws.focused { color: var(--bg); background: var(--accent); }
+      #right { justify-self: end; color: var(--accent); }
+    </style>
+  </head>
+  <body>
+    <div id="workspaces"></div>
+    <div id="clock"></div>
+    <div id="right"></div>
+
+    <script type="module">
+      import * as zebar from 'https://esm.sh/zebar@3.0';
+
+      // Same workspaces GlazeWM keeps alive (keep_alive in its config.yaml)
+      const ALWAYS = ['1', '2', '3', '4', '5'];
+
+      const providers = zebar.createProviderGroup({
+        glazewm: { type: 'glazewm' },
+        date: { type: 'date', formatting: 'EEE d MMM  HH:mm' },
+      });
+
+      const wsEl = document.getElementById('workspaces');
+      const clockEl = document.getElementById('clock');
+      const rightEl = document.getElementById('right');
+
+      function render() {
+        const { glazewm, date } = providers.outputMap;
+        clockEl.textContent = date?.formatted ?? '';
+        if (!glazewm) return;
+
+        // This monitor's workspaces, plus the always-on ones even if GlazeWM
+        // hasn't created them yet
+        const byName = new Map(glazewm.currentWorkspaces.map(w => [w.name, w]));
+        const names = [...new Set([...ALWAYS, ...byName.keys()])]
+          .sort((a, b) => Number(a) - Number(b));
+
+        wsEl.replaceChildren(...names.map(name => {
+          const ws = byName.get(name);
+          const button = document.createElement('button');
+          button.className = 'ws'
+            + (ws?.children?.length ? ' occupied' : '')
+            + (ws?.isDisplayed ? ' focused' : '');
+          button.textContent = name;
+          button.onclick = () => glazewm.runCommand(`focus --workspace ${name}`);
+          return button;
+        }));
+
+        const modes = glazewm.bindingModes.map(m => m.displayName ?? m.name);
+        if (glazewm.isPaused) modes.unshift('paused');
+        rightEl.textContent = modes.join('  ');
+      }
+
+      render();
+      providers.onOutput(render);
+    </script>
+  </body>
+</html>
