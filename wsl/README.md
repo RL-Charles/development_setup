@@ -15,8 +15,10 @@ shared files at the repo root; nothing in here is used on Linux.
 | `windows/` | Windows profile files, at their `%USERPROFILE%` path |
 | `vscode-extensions.txt` | VS Code extensions on this machine |
 
-Some manifest entries (nvim, starship, git, Windows Terminal) still point at
-shared paths at the repo root.
+Every manifest entry is a WSL copy under `home/` or `windows/`. The repo-root
+files with the same names (nvim, starship, git, Windows Terminal, WezTerm,
+herdr, VS Code) belong to the Omarchy/shared setup; changing one doesn't
+change the other.
 
 ## Fresh machine
 

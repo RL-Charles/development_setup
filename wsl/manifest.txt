@@ -8,27 +8,27 @@
 # Shell, prompt, toolchain
 .bashrc
 .config/mise/config.toml
-.config/starship.toml                  starship.toml
+.config/starship.toml
 
 # Editor, multiplexer
-.config/nvim/                          nvim/
+.config/nvim/
 .config/herdr/config.toml
 .local/bin/herdr-theme
 
 # Git
-.gitconfig                             git/.gitconfig
-.config/git/ignore                     omarchy/home/.config/git/ignore
+.gitconfig
+.config/git/ignore
 
 # Claude Code (user-level instructions and settings, no credentials)
 .claude/CLAUDE.md
 .claude/settings.json
 
 # Windows side
-win:AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json   windows-terminal/settings.json
+win:AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json
 win:.glzr/glazewm/config.yaml
 win:AppData/Roaming/Code/User/settings.json
 win:AppData/Roaming/Code/User/keybindings.json
-win:.wezterm.lua                       wezterm/.wezterm.lua
+win:.wezterm.lua
 win:.XCompose
 win:.config/copy-popup/copy-popup.ps1
 win:.config/autohotkey/winkey.ahk
