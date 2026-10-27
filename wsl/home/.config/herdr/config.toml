@@ -1,0 +1,15 @@
+onboarding = false
+[theme]
+name = "tokyo-night"
+auto_switch = false
+# "terminal" follows the herdr Windows Terminal profile's colour scheme;
+# switch it with herdr-theme (run it bare to list schemes).
+
+[ui]
+pane_borders = true
+# Use the host terminal cursor so Neovim can switch block (normal) vs bar (insert).
+host_cursor = "native"
+
+show_agent_labels_on_pane_borders = true
+[keys]
+prefix = "ctrl+space"

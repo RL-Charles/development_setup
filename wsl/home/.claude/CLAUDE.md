@@ -17,6 +17,6 @@ Work laptop: Windows 11 + WSL2 Ubuntu (distro name `Ubuntu`, systemd on). I came
 
 ## Look
 
-- Windows Terminal + Starship: Catppuccin Mocha, CaskaydiaMono Nerd Font 12 semibold.
+- Windows Terminal + Starship: Catppuccin Mocha, JetBrainsMono Nerd Font 9 medium.
 - Neovim (LazyVim) + herdr: Tokyo Night (moon). This split is intentional.
 - GlazeWM (`win:.glzr/glazewm/config.yaml`) carries Omarchy's Hyprland keybindings on the Win key.
