@@ -1,0 +1,4 @@
+# Global markdownlint config for Neovim (passed via --config in lua/plugins/markdown.lua).
+config:
+  MD013: false # line length: long prose and table rows are fine
+  MD060: false # table pipe spacing: compact tables are fine
