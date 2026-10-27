@@ -1,0 +1,39 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Ubuntu (WSL)",
+    "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+    "terminal.integrated.fontSize": 9,
+    "terminal.integrated.fontWeight": "500",
+    "terminal.integrated.initialHint": false,
+    "github.copilot.nextEditSuggestions.enabled": false,
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "window.zoomLevel": -0.7,
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "all",
+    "workbench.colorTheme": "Dark+",
+    "files.autoSave": "afterDelay",
+    "security.workspace.trust.untrustedFiles": "open",
+    "claudeCode.preferredLocation": "panel",
+    "claudeCode.allowDangerouslySkipPermissions": true,
+    "chat.mcp.gallery.enabled": true,
+    "chat.tools.urls.autoApprove": {
+        "https://code.visualstudio.com": true,
+        "https://github.com/microsoft/vscode/wiki/*": true,
+        "https://developers.procore.com": {
+            "approveRequest": true,
+            "approveResponse": false
+        }
+    },
+    "chat.tools.terminal.autoApprove": {
+        "npx vitest": true
+    },
+    "chat.agent.maxRequests": 100,
+    "chat.viewSessions.enabled": false,
+    "remote.SSH.remotePlatform": {
+        "10.0.0.236": "linux"
+    }
+}

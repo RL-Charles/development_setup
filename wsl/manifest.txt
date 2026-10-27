@@ -12,7 +12,7 @@
 
 # Editor, multiplexer
 .config/nvim/                          nvim/
-.config/herdr/config.toml              herdr_config.toml
+.config/herdr/config.toml
 .local/bin/herdr-theme
 
 # Git
@@ -26,6 +26,8 @@
 # Windows side
 win:AppData/Local/Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json   windows-terminal/settings.json
 win:.glzr/glazewm/config.yaml
+win:AppData/Roaming/Code/User/settings.json
+win:AppData/Roaming/Code/User/keybindings.json
 win:.wezterm.lua                       wezterm/.wezterm.lua
 win:.XCompose
 win:.config/copy-popup/copy-popup.ps1
